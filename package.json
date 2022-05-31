@@ -28,7 +28,7 @@
     "merkletreejs": "^0.2.31",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "4.0.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -56,6 +56,8 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.18.2",
+    "@babel/eslint-parser": "^7.18.2",
     "@nomiclabs/hardhat-etherscan": "^3.0.4",
     "autoprefixer": "^10.4.7",
     "erc721a": "^4.0.0",

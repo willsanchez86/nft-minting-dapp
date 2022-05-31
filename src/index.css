@@ -6,16 +6,16 @@
 
 :root {
     --font-family: 'Open Sans', sans-serif;
-    --clr-black: #0b090a,
-    --clr-charcoal: #161a1d,
-    --clr-dark-maroon: #660708,
-    --clr-maroon: #a4161a,
-    --clr-red: #ba181b,
-    --clr-light-red: #e5383b,
-    --clr-dark-grey: #b1a7a6,
-    --clr-grey: #d3d3d3,
-    --clr-light-grey: #f5f3f4,
-    --clr-white: #ffffff
+    --clr-black: #0b090a;
+    --clr-charcoal: #161a1d;
+    --clr-dark-maroon: #660708;
+    --clr-maroon: #a4161a;
+    --clr-red: #ba181b;
+    --clr-light-red: #e5383b;
+    --clr-dark-grey: #b1a7a6;
+    --clr-grey: #d3d3d3;
+    --clr-light-grey: #f5f3f4;
+    --clr-white: #fffff;
 }
 
 html {
