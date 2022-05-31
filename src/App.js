@@ -1,40 +1,42 @@
 import NftImage from './components/NftImage';
 import { useState, useEffect } from 'react'
-import { initOnboard } from '../utils/onboard'
-import { useConnectWallet, useSetChain, useWallets } from '@web3-onboard/react'
-import {
-  getTotalMinted,
-  getMaxSupply,
-  isPausedState,
-  isPublicSaleState,
-  isPreSaleState,
-  isVipSaleState,
-  vipMint,
-  presaleMint,
-  publicMint
-} from '../utils/interact'
-const CollectionConfig = require('../config/CollectionConfig.js')
+
+// import { initOnboard } from 'utils/onboard'
+// import { useConnectWallet, useSetChain, useWallets } from '@web3-onboard/react'
+// import {
+//   getTotalMinted,
+//   getMaxSupply,
+//   isPausedState,
+//   isPublicSaleState,
+//   isPreSaleState,
+//   isVipSaleState,
+//   vipMint,
+//   presaleMint,
+//   publicMint
+// } from '../utils/interact'
+
+import CollectionConfig from 'config/CollectionConfig'
 
 function App() {
-  const [{ wallet, connecting }, connect, disconnect] = useConnectWallet()
-  const [{ chains, connectedChain, settingChain }, setChain] = useSetChain()
-  const connectedWallets = useWallets()
+//   const [{ wallet, connecting }, connect, disconnect] = useConnectWallet()
+//   const [{ chains, connectedChain, settingChain }, setChain] = useSetChain()
+//   const connectedWallets = useWallets()
 
-  const [maxSupply, setMaxSupply] = useState(0)
-  const [totalMinted, setTotalMinted] = useState(0)
-  const [maxMintAmount, setMaxMintAmount] = useState(0)
-  const [paused, setPaused] = useState(false)
-  const [isPublicSale, setIsPublicSale] = useState(false)
-  const [isPreSale, setIsPreSale] = useState(false)
+//   const [maxSupply, setMaxSupply] = useState(0)
+//   const [totalMinted, setTotalMinted] = useState(0)
+//   const [maxMintAmount, setMaxMintAmount] = useState(0)
+//   const [paused, setPaused] = useState(false)
+//   const [isPublicSale, setIsPublicSale] = useState(false)
+//   const [isPreSale, setIsPreSale] = useState(false)
 
-  const [status, setStatus] = useState(null)
-  const [mintAmount, setMintAmount] = useState(1)
-  const [isMinting, setIsMinting] = useState(false)
-  const [onboard, setOnboard] = useState(null)
+//   const [status, setStatus] = useState(null)
+//   const [mintAmount, setMintAmount] = useState(1)
+//   const [isMinting, setIsMinting] = useState(false)
+//   const [onboard, setOnboard] = useState(null)
 
-  useEffect(() => {
-    setOnboard(initOnboard)
-  }, [])
+//   useEffect(() => {
+//     setOnboard(initOnboard)
+//   }, [])
 
 
   return (

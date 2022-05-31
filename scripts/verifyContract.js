@@ -5,8 +5,9 @@
 
 
 
+import CollectionConfig from '../config/CollectionConfig';
 require('@nomiclabs/hardhat-etherscan')
-const CollectionConfig = require('../config/CollectionConfig.js');
+// const CollectionConfig = require('../config/CollectionConfig.js');
 const hre = require('hardhat');
 const { MerkleTree } = require('merkletreejs');
 const keccak256 = require('keccak256');

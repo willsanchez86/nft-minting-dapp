@@ -24,4 +24,6 @@ const CollectionConfig = {
   contractAddress: '0x4ac8a77b56073Ba7f014eC35d9E2119d87c551D4',
 };
 
-module.exports = CollectionConfig;
+// module.exports = CollectionConfig;
+
+export default CollectionConfig;

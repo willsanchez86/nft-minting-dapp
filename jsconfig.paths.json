@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "near-src/*": [ "near-src/src/*" ],
+      "utils/*": [ "utils/*" ],
+      "config/*": [ "config/*" ]
+    }
+  }
+}

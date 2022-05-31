@@ -1,4 +1,4 @@
-const CollectionConfig = require('../config/CollectionConfig.js');
+import CollectionConfig from '../config/CollectionConfig';
 const hre = require('hardhat');
 const { MerkleTree } = require('merkletreejs');
 const keccak256 = require('keccak256');
