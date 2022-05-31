@@ -1,5 +1,5 @@
 //SPDX-License-Identifier: Unlicense
-pragma solidity ^0.8.9;
+pragma solidity 0.8.9;
 
 import "hardhat/console.sol";
 
@@ -21,8 +21,6 @@ contract GenericEye is ERC721, Ownable, ReentrancyGuard, PaymentSplitter {
 
     address proxyRegistryAddress;
 
-    // ! Need to explicitly input cost and maxSupply during contract implementation
-
     uint256 public price;
     uint256 public maxSupply;
     uint256 public maxMintAmountPerTx;
@@ -38,15 +36,15 @@ contract GenericEye is ERC721, Ownable, ReentrancyGuard, PaymentSplitter {
     bool public publicM = false;
     bool public vipM = false;
 
-    // uint256 _price = 10000000000000000; // 0.01 ETH
+    // uint256 _price = 50000000000000000; // 0.05 ETH
 
     Counters.Counter private _tokenIds;
 
     uint256[] private _teamShares = [25, 35, 40]; // 3 PEOPLE IN THE TEAM
     address[] private _team = [
-        0x933572D5F83B00A998102b7bf1a99c0f197E685B, // Admin Account gets 25% of the total revenue
-        0x82de9CE4a49fFeC4C41Cf733126F618eD83a879C, // Test Account gets 35% of the total revenue
-        0x8a7aC9834e2D4487Da22Dc130C97Ee8fBDc85568 // VIP Account gets 40% of the total revenue
+        0xFD821ac0fe07f65f8c7b72616E145d393a82d406, // Admin Account gets 25% of the total revenue
+        0x4173492Fb0E3dfB8EAF7610bA139e86E30B0Dafd, // Test Account gets 35% of the total revenue
+        0xDF2D8bAe5FC6b0F7e634fee9b195CbE704C1dF07 // VIP Account gets 40% of the total revenue
     ];
 
     constructor(
@@ -108,7 +106,7 @@ contract GenericEye is ERC721, Ownable, ReentrancyGuard, PaymentSplitter {
     }
 
     function toggleVipSale() public onlyOwner {
-        paused = !paused;
+        vipM = !vipM;
     }
 
     function togglePresale() public onlyOwner {
@@ -129,11 +127,11 @@ contract GenericEye is ERC721, Ownable, ReentrancyGuard, PaymentSplitter {
         require(!paused, "GenericEyes: Contract is paused");
         require(
             _amount <= maxMintAmountPerTx,
-            "GenericEyes: You can't mint so much tokens"
+            "GenericEyes: You can't mint so many tokens"
         );
         require(
-            presaleClaimed[msg.sender] + _amount <= maxMintAmountPerTx,
-            "GenericEyes: You can't mint so much tokens"
+            vipClaimed[msg.sender] + _amount <= maxMintAmountPerTx,
+            "GenericEyes: You can't mint so many tokens"
         );
 
         uint256 current = _tokenIds.current();
@@ -271,6 +269,8 @@ contract GenericEye is ERC721, Ownable, ReentrancyGuard, PaymentSplitter {
     function totalSupply() public view returns (uint256) {
         return _tokenIds.current();
     }
+
+    //TODO: CREATE withdraw() function
 
     /**
      * Override isApprovedForAll to whitelist user's OpenSea proxy accounts to enable gas-less listings.
