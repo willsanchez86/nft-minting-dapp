@@ -7,7 +7,7 @@ import ledgerModule from '@web3-onboard/ledger'
 
 
 // const ETH_MAINNET_RPC = `https://mainnet.infura.io/v3/${INFURA_KEY}`
-const RPC_URL = process.env.NEXT_PUBLIC_ALCHEMY_RPC_URL
+const RPC_URL = process.env.REACT_APP_NEXT_PUBLIC_ALCHEMY_RPC_URL
 console.log(RPC_URL)
 
 const injected = injectedModule()
