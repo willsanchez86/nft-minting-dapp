@@ -1,8 +1,7 @@
 import NftImage from './components/NftImage';
 import { useState, useEffect } from 'react'
-
-// import { initOnboard } from 'utils/onboard'
-// import { useConnectWallet, useSetChain, useWallets } from '@web3-onboard/react'
+import { initOnboard } from 'utils/onboard'
+import { useConnectWallet, useSetChain, useWallets } from '@web3-onboard/react'
 // import {
 //   getTotalMinted,
 //   getMaxSupply,

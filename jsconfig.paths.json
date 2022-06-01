@@ -4,7 +4,8 @@
     "paths": {
       "near-src/*": [ "near-src/src/*" ],
       "utils/*": [ "utils/*" ],
-      "config/*": [ "config/*" ]
+      "config/*": [ "config/*" ],
+      "artifacts/*": ["artifacts/*"]
     }
   }
 }

@@ -5,8 +5,10 @@ import walletConnectModule from '@web3-onboard/walletconnect'
 import coinbaseWalletModule from '@web3-onboard/coinbase'
 import ledgerModule from '@web3-onboard/ledger'
 
+
 // const ETH_MAINNET_RPC = `https://mainnet.infura.io/v3/${INFURA_KEY}`
-const ETH_RINKEBY_RPC = process.env.NEXT_PUBLIC_ALCHEMY_RPC_URL
+const RPC_URL = process.env.NEXT_PUBLIC_ALCHEMY_RPC_URL
+console.log(RPC_URL)
 
 const injected = injectedModule()
 const walletConnect = walletConnectModule()
@@ -33,7 +35,7 @@ const initOnboard = init({
       id: '0x4',
       token: 'rETH',
       label: 'Ethereum Rinkeby Testnet',
-      rpcUrl: ETH_RINKEBY_RPC
+      rpcUrl: RPC_URL
     }
     // {
     //   id: '0x38',
