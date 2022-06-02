@@ -7,7 +7,7 @@ const CollectionConfig = {
   contractName: 'GenericEye',
   tokenName: 'GenericEye',
   tokenSymbol: 'EYE',
-//   hiddenMetadataUri: 'ipfs://__CID__/hidden.json',
+  //   hiddenMetadataUri: 'ipfs://__CID__/hidden.json',
   maxSupply: 20,
   vipSale: {
     price: 0, // Free mint for VIP

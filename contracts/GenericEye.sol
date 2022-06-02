@@ -25,7 +25,7 @@ contract GenericEye is ERC721, Ownable, ReentrancyGuard, PaymentSplitter {
     uint256 public maxSupply;
     uint256 public maxMintAmountPerTx;
 
-    string public baseURI;
+    string public baseURI; // ! Make private on next contract
     string public hiddenMetadataUri =
         "ipfs://QmXbSt9F1fx2VvvgS5Hj7FrSaZe5k99pAZv2GKv1H9Mff3/hidden.json";
     string public baseExtension = ".json";

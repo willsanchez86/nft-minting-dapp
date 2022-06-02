@@ -83,14 +83,20 @@ function App() {
 
       setPaused(await isPausedState());
       setIsPublicSale(await isPublicSaleState());
-      const isPreSale = await isPreSaleState();
-      setIsPreSale(isPreSale);
+      setIsPreSale(await isPreSaleState());
+      setIsVipSale(await isVipSaleState());
 
-      // setMaxMintAmount(
-      //   isPreSale ? config.presaleMaxMintAmount : config.maxMintAmount
-      // )
+      setMaxMintAmount(
+        isVipSale
+          ? CollectionConfig.vipSale.maxMintAmountPerTx
+          : isPreSale
+          ? CollectionConfig.presale.maxMintAmountPerTx
+          : CollectionConfig.publicSale.maxMintAmountPerTx
+      );
+
+      // TODO: Set Price
     };
-    // init()
+    init();
   }, []);
 
   // Increment and Decrement Mint Amount functions
@@ -152,7 +158,13 @@ function App() {
               </button>
             )}
             <header className="font-coiny uppercase h-1/5 text-3xl md:text-4xl font-bold pt-14 md:pt-4">
-              PUBLIC SALE
+              {paused
+                ? 'Paused'
+                : isVipSale
+                ? 'VIP Mint'
+                : isPreSale
+                ? 'Pre-Sale'
+                : 'Public Sale'}
             </header>
             <h3 className="text-sm text-pink-200 tracking-widest md:pt-8">
               {/* If wallet is connected,  render abbreciated contract address*/}
