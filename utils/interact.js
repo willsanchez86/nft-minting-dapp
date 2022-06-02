@@ -22,6 +22,18 @@ const leafNodes = vipWhitelist.map((addr) => keccak256(addr));
 const merkleTree = new MerkleTree(leafNodes, keccak256, { sortPairs: true });
 const root = merkleTree.getRoot();
 
+export const setPreSaleMerkleRoot = async () => {
+  // Re-calculate merkle root from the whitelist array.
+  const leafNodes = preSaleWhitelist.map((addr) => keccak256(addr));
+  const merkleTree = new MerkleTree(leafNodes, keccak256, { sortPairs: true });
+  const newRoot = merkleTree.getRoot();
+
+  // Set the re-calculated merkle root to the contract.
+  await nftContract.setMerkleRoot(newRoot);
+
+  console.log('Whitelist root set to:', newRoot);
+};
+
 export const getTotalMinted = async () => {
   const totalMinted = await nftContract.methods.totalSupply().call();
   return totalMinted;

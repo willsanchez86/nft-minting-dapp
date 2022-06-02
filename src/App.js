@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { initOnboard } from 'utils/onboard';
 import { useConnectWallet, useSetChain, useWallets } from '@web3-onboard/react';
 import {
+  setPreSaleMerkleRoot,
   getTotalMinted,
   getMaxSupply,
   isPausedState,
@@ -98,6 +99,13 @@ function App() {
     };
     init();
   }, []);
+
+  // ? If preSale, update Merkle Root to preSaleWhitelist
+  useEffect(() => {
+    if (isPreSale) {
+      setPreSaleMerkleRoot();
+    }
+  }, [isPreSale]);
 
   // Increment and Decrement Mint Amount functions
   const incrementMintAmount = () => {
