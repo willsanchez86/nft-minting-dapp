@@ -8,13 +8,13 @@ import ledgerModule from '@web3-onboard/ledger'
 
 // const ETH_MAINNET_RPC = `https://mainnet.infura.io/v3/${INFURA_KEY}`
 const RPC_URL = process.env.REACT_APP_NEXT_PUBLIC_ALCHEMY_RPC_URL
-console.log(RPC_URL)
+
 
 const injected = injectedModule()
 const walletConnect = walletConnectModule()
 const coinbaseWalletSdk = coinbaseWalletModule({ darkMode: true })
 const ledger = ledgerModule()
-const fortmatic = fortmaticModule({ apiKey: process.env.NEXT_PUBLIC_FORTMATIC_KEY })
+const fortmatic = fortmaticModule({ apiKey: process.env.REACT_APP_NEXT_PUBLIC_FORTMATIC_KEY })
 
 const initOnboard = init({
   wallets: [injected, walletConnect, coinbaseWalletSdk, ledger, fortmatic],

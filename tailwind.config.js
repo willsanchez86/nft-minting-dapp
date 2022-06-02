@@ -1,9 +1,7 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
+  content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
       fontFamily: {
@@ -19,12 +17,9 @@ module.exports = {
         'brand-dark-grey': 'var(--clr-dark-grey)',
         'brand-grey': 'var(--clr-grey)',
         'brand-light-grey': 'var(--clr-light-grey)',
-        'brand-white': 'var(--clr-white)'
+        'brand-white': 'var(--clr-white)',
       },
-      minHeight: (theme) => ({
-        ...theme('spacing'),
-      }),
     },
   },
-  plugins: [require("daisyui")],
-}
+  plugins: [require('daisyui')],
+};

@@ -1,17 +1,23 @@
-import image from '../assets/CarmineChimpanzini.jpg';
-import CollectionConfig from 'config/CollectionConfig'
+import image from "../assets/CarmineChimpanzini.jpg";
+import CollectionConfig from "config/CollectionConfig";
 
 function NftImage() {
-//   return <img src={image} alt="nft" className="m-auto" />
-    return (
-        <div className="relative w-full">
-            {/* <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Avatar" className="object-cover w-full h-full" /> */}
-            <img src={image} alt="nft" className="object-cover w-full sm:h-[280px] md:w-[250px] rounded-md" />
-            <div className="badge badge-lg absolute w-1/3 h-12 py-2.5 top-2 inset-x-2 bg-black text-white text-xl md:text-md text-center font-bold">
-                <h1><span>0</span> \ {CollectionConfig.maxSupply}</h1>
-            </div>
+  return (
+    <div className="flex w-full md:w-1/2">
+      <div className="relative w-full md:pr-4 md:pb-10 md:pr-12">
+        <div className="font-coiny z-10 absolute px-4 py-2 top-2 left-2 text-base bg-black text-white rounded-md  flex items-center  font-semibold">
+          <p>
+            <span>0</span> \ {CollectionConfig.maxSupply}
+          </p>
         </div>
-    )
+        <img
+          src={image}
+          alt="nft"
+          className="object-cover w-full rounded-md md:w-5/6"
+        />
+      </div>
+    </div>
+  );
 }
 
-export default NftImage
+export default NftImage;

@@ -6,7 +6,7 @@ const vipWhitelist = require('../config/vip.js')
 const preSaleWhitelist = require('../config/whitelist.js')
 
 //Instantiate web3
-const web3 = createAlchemyWeb3(process.env.NEXT_PUBLIC_ALCHEMY_RPC_URL)
+const web3 = createAlchemyWeb3(process.env.REACT_APP_NEXT_PUBLIC_ALCHEMY_RPC_URL)
 
 const contract = require('../artifacts/contracts/GenericEye.sol/GenericEye.json')
 const nftContract = new web3.eth.Contract(contract.abi, CollectionConfig.contractAddress)

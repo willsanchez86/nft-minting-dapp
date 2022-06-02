@@ -1,24 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Coiny&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-    --font-family: 'Open Sans', sans-serif;
-    --clr-black: #0b090a;
-    --clr-charcoal: #161a1d;
-    --clr-dark-maroon: #660708;
-    --clr-maroon: #a4161a;
-    --clr-red: #ba181b;
-    --clr-light-red: #e5383b;
-    --clr-dark-grey: #b1a7a6;
-    --clr-grey: #d3d3d3;
-    --clr-light-grey: #f5f3f4;
-    --clr-white: #fffff;
+* {
+  box-sizing: border-box;
 }
 
-html {
-    font-family: var(--font-family);
-    bg-color: red;
+:root {
+  --font-family: 'Open Sans', sans-serif;
+  --clr-black: #0b090a;
+  --clr-charcoal: #161a1d;
+  --clr-dark-maroon: #660708;
+  --clr-maroon: #a4161a;
+  --clr-red: #ba181b;
+  --clr-light-red: #e5383b;
+  --clr-dark-grey: #b1a7a6;
+  --clr-grey: #d3d3d3;
+  --clr-light-grey: #f5f3f4;
+  --clr-white: #fffff;
 }
