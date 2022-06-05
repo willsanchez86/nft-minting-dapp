@@ -8,6 +8,14 @@
   box-sizing: border-box;
 }
 
+body {
+  height: 100vh;
+}
+
+#root {
+  height: 100%;
+}
+
 :root {
   --font-family: 'Open Sans', sans-serif;
   --clr-black: #0b090a;

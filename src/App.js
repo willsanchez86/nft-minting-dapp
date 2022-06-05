@@ -186,8 +186,8 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen h-full w-full overflow-hidden flex bg-gradient-to-br from-red-300 to-stone-900">
-      <div className="h-full md:h-screen w-11/12 lg:w-7/12 bg-black bg-blend-color-dodge m-auto text-center">
+    <div className="h-full w-full overflow-hidden flex bg-gradient-to-br from-red-300 to-stone-900">
+      <div className="h-full w-11/12 lg:w-7/12 bg-black bg-blend-color-dodge m-auto text-center">
         <div className="flex flex-col  h-full w-full px-2 md:px-10">
           <div className="relative z-1 w-full bg-gray-900/90 filter backdrop-blur-sm py-4 rounded-md px-2 md:px-10 flex flex-col">
             {wallet && (
@@ -221,7 +221,7 @@ function App() {
             </h3>
           </div>
           <main className="flex flex-1 flex-wrap">
-            <NftImage />
+            <NftImage totalMinted={totalMinted} maxSupply={maxSupply} />
             <div className="flex flex-1 flex-col justify-between px-4 mt-16 md:mt-0">
               <div className="flex justify-between gap-4">
                 <button
