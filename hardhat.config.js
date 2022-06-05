@@ -1,5 +1,5 @@
-require("@nomiclabs/hardhat-waffle");
-
+require('@nomiclabs/hardhat-waffle');
+require('dotenv').config();
 
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
@@ -7,34 +7,34 @@ require("@nomiclabs/hardhat-waffle");
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
- module.exports = {
+module.exports = {
   solidity: {
     version: '0.8.9',
     settings: {
       optimizer: {
         enabled: true,
-        runs: 200
-      }
-    }
+        runs: 200,
+      },
+    },
   },
   defaultNetwork: 'rinkeby', // ! Change Network when deploying to mainnet
   networks: {
     hardhat: {}, // ! Define mainnet network when switching to mainnet
     rinkeby: {
-      url: `${process.env.NEXT_PUBLIC_ALCHEMY_RPC_URL}`,
-      accounts: [`0x${process.env.METAMASK_PRIVATE_KEY}`]
-    }
+      url: `${process.env.REACT_APP_NEXT_PUBLIC_ALCHEMY_RPC_URL}`,
+      accounts: [`0x${process.env.REACT_APP_METAMASK_PRIVATE_KEY}`],
+    },
   },
   paths: {
     sources: './contracts',
     tests: './test',
     cache: './cache',
-    artifacts: './artifacts'
+    artifacts: './artifacts',
   },
   mocha: {
-    timeout: 40000
+    timeout: 40000,
   },
   etherscan: {
-    apiKey: `${process.env.ETHERSCAN_API_KEY}`
-  }
-}
+    apiKey: `${process.env.REACT_APP_ETHERSCAN_API_KEY}`,
+  },
+};

@@ -1,9 +1,7 @@
 {
-    "compilerOptions": {
-        "baseUrl": "."
-    },
-    "extends": "./jsconfig.paths.json", 
-    "include": [
-        "src"
-    ]
+  "compilerOptions": {
+    "baseUrl": "."
+  },
+  "extends": "./jsconfig.paths.json",
+  "include": ["src", "scripts", "utils"]
 }

@@ -64,10 +64,14 @@ export const isPublicSaleState = async () => {
   return publicSale;
 };
 
-// export const getPrice = async () => {
-//   const price = await nftContract.methods.price().call()
-//   return price
-// }
+export const getCost = async () => {
+  const price = await nftContract.methods.price().call();
+  return price;
+};
+
+export const setCost = async (_price) => {
+  nftContract.methods.setPrice(_price).catch((err) => console.log(err));
+};
 
 export const vipMint = async (mintAmount) => {
   if (!window.ethereum.selectedAddress) {
@@ -104,7 +108,7 @@ export const vipMint = async (mintAmount) => {
     //   web3.utils.toWei(String(CollectionConfig.price * mintAmount), 'ether')
     // ).toString(16), // hex
     data: nftContract.methods
-      .presaleMint(window.ethereum.selectedAddress, mintAmount, proof)
+      .vipMint(window.ethereum.selectedAddress, mintAmount, proof)
       .encodeABI(),
     nonce: nonce.toString(16),
   };

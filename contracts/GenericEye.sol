@@ -25,7 +25,7 @@ contract GenericEye is ERC721, Ownable, ReentrancyGuard, PaymentSplitter {
     uint256 public maxSupply;
     uint256 public maxMintAmountPerTx;
 
-    string public baseURI; // ! Make private on next contract
+    string private baseURI; // ! Make private on next contract
     string public hiddenMetadataUri =
         "ipfs://QmXbSt9F1fx2VvvgS5Hj7FrSaZe5k99pAZv2GKv1H9Mff3/hidden.json";
     string public baseExtension = ".json";
@@ -34,7 +34,7 @@ contract GenericEye is ERC721, Ownable, ReentrancyGuard, PaymentSplitter {
     bool public revealed = false;
     bool public presaleM = false;
     bool public publicM = false;
-    bool public vipM = false;
+    bool public vipM = true; // ! set vipM to true upon initialization
 
     // uint256 _price = 50000000000000000; // 0.05 ETH
 
@@ -101,20 +101,30 @@ contract GenericEye is ERC721, Ownable, ReentrancyGuard, PaymentSplitter {
         _;
     }
 
+    // TODO: Gas Optimizer
+
+    // TODO: Implement Pull Payment Strategy
+
+
+    // Unpause function when any type of sale is enabled
+
     function togglePause() public onlyOwner {
         paused = !paused;
     }
 
     function toggleVipSale() public onlyOwner {
         vipM = !vipM;
+        paused = true;
     }
 
     function togglePresale() public onlyOwner {
         presaleM = !presaleM;
+        paused = true;
     }
 
     function togglePublicSale() public onlyOwner {
         publicM = !publicM;
+        paused = true;
     }
 
     function vipMint(
@@ -270,7 +280,6 @@ contract GenericEye is ERC721, Ownable, ReentrancyGuard, PaymentSplitter {
         return _tokenIds.current();
     }
 
-    //TODO: CREATE withdraw() function
 
     /**
      * Override isApprovedForAll to whitelist user's OpenSea proxy accounts to enable gas-less listings.

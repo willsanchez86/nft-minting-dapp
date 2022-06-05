@@ -21,9 +21,11 @@ const CollectionConfig = {
     price: 90000000000000000, // 0.09 ether
     maxMintAmountPerTx: 5,
   },
-  contractAddress: '0x4ac8a77b56073Ba7f014eC35d9E2119d87c551D4',
+  contractAddress: '0x8e2d2410C712c7821b229B2e0A585ABf6Ae83B6B',
 };
 
+//! Use this export when deploying/verifying contract
 // module.exports = CollectionConfig;
 
+//! Use this export when running script inside src
 export default CollectionConfig;

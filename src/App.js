@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { initOnboard } from 'utils/onboard';
 import { useConnectWallet, useSetChain, useWallets } from '@web3-onboard/react';
 import {
+  setCost,
+  getCost,
   setPreSaleMerkleRoot,
   getTotalMinted,
   getMaxSupply,
@@ -28,12 +30,13 @@ function App() {
   const [paused, setPaused] = useState(false);
   const [isPublicSale, setIsPublicSale] = useState(false);
   const [isPreSale, setIsPreSale] = useState(false);
-  const [isVipSale, setIsVipSale] = useState(false);
+  const [isVipSale, setIsVipSale] = useState(true);
 
   const [status, setStatus] = useState(null);
   const [mintAmount, setMintAmount] = useState(1);
   const [isMinting, setIsMinting] = useState(false);
   const [onboard, setOnboard] = useState(null);
+  const [price, setPrice] = useState(null);
 
   // Set Onboard
   useEffect(() => {
@@ -84,8 +87,10 @@ function App() {
 
       setPaused(await isPausedState());
       setIsPublicSale(await isPublicSaleState());
-      setIsPreSale(await isPreSaleState());
-      setIsVipSale(await isVipSaleState());
+      const preSaleState = await isPreSaleState();
+      setIsPreSale(preSaleState);
+      const vipSaleState = await isVipSaleState();
+      setIsVipSale(vipSaleState);
 
       setMaxMintAmount(
         isVipSale
@@ -95,31 +100,62 @@ function App() {
           : CollectionConfig.publicSale.maxMintAmountPerTx
       );
 
-      // TODO: Set Price
+      setPrice(await getCost());
     };
     init();
   }, []);
 
-  // ? If preSale, update Merkle Root to preSaleWhitelist
+  // ! If preSale, update Merkle Root to preSaleWhitelist and adjust price
   useEffect(() => {
     if (isPreSale) {
-      setPreSaleMerkleRoot();
+      const preSaleConfig = async () => {
+        await setPreSaleMerkleRoot();
+        await setCost(CollectionConfig.preSale.price);
+      };
+
+      preSaleConfig();
     }
   }, [isPreSale]);
+
+  // ! If publicSale, update price
+  useEffect(() => {
+    if (isPublicSale) {
+      const publicSaleConfig = async () => {
+        await setCost(CollectionConfig.publicSale.price);
+      };
+
+      publicSaleConfig();
+    }
+  }, [isPublicSale]);
 
   // Increment and Decrement Mint Amount functions
   const incrementMintAmount = () => {
     if (mintAmount < maxMintAmount) {
       setMintAmount(mintAmount + 1);
     }
+    console.log(mintAmount);
   };
 
   const decrementMintAmount = () => {
     if (mintAmount > 1) {
       setMintAmount(mintAmount - 1);
+      console.log(mintAmount);
     }
   };
+
   // TODO: VIP Mint Handler
+  const vipMintHandler = async () => {
+    setIsMinting(true);
+
+    const { success, status } = await vipMint(mintAmount);
+
+    setStatus({
+      success,
+      message: status,
+    });
+
+    setIsMinting(false);
+  };
 
   // TODO: PreSale Mint Handler
   const presaleMintHandler = async () => {
@@ -134,6 +170,7 @@ function App() {
 
     setIsMinting(false);
   };
+
   // TODO: Public Mint Handler
   const publicMintHandler = async () => {
     setIsMinting(true);
@@ -187,22 +224,31 @@ function App() {
             <NftImage />
             <div className="flex flex-1 flex-col justify-between px-4 mt-16 md:mt-0">
               <div className="flex justify-between gap-4">
-                <button className="btn btn-square btn-lg text-white text-5xl pb-1">
+                <button
+                  onClick={incrementMintAmount}
+                  className="btn btn-square btn-lg text-white text-5xl pb-1"
+                >
                   +
                 </button>
                 <h1 className="font-sans h-1/5 text-4xl text-center font-bold mt-2">
                   1
                 </h1>
-                <button className="btn btn-square btn-lg justify-self-end text-white text-4xl pb-1">
+                <button
+                  onClick={decrementMintAmount}
+                  className="btn btn-square btn-lg justify-self-end text-white text-4xl pb-1"
+                >
                   -
                 </button>
               </div>
-              <p>Max Mint Amount: 5</p>
+              <p>Max Mint Amount: {maxMintAmount}</p>
               <div className="flex flex-1 flex-col justify-center">
                 <div className="font-coiny font-semibold flex text-2xl border-y border-gray-300 py-6">
                   <h1 className="justify-start">Total</h1>
                   <h1 className="ml-auto">
-                    <span>0.1</span>ETH + GAS
+                    <span className="mr-1">
+                      {Number.parseFloat(price * mintAmount).toFixed(2)}
+                    </span>
+                    ETH + GAS
                   </h1>
                 </div>
               </div>
@@ -216,7 +262,13 @@ function App() {
                       : 'bg-gradient-to-br from-brand-purple to-brand-pink shadow-lg hover:shadow-pink-400/50'
                   } font-coiny mt-12 w-full px-6 py-3 rounded-md text-2xl text-white  mx-4 tracking-wide uppercase`}
                   disabled={paused || isMinting}
-                  onClick={isPreSale ? presaleMintHandler : publicMintHandler}
+                  onClick={
+                    isVipSale
+                      ? vipMintHandler
+                      : isPreSale
+                      ? presaleMintHandler
+                      : publicMintHandler
+                  }
                 >
                   {isMinting ? 'Minting...' : 'Mint'}
                 </button>
