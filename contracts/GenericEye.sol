@@ -21,13 +21,13 @@ contract GenericEye is ERC721, Ownable, ReentrancyGuard, PaymentSplitter {
 
     address proxyRegistryAddress;
 
-    uint256 public price;
+    uint256 public price; // TODO: Manually set contract price to correct price
     uint256 public maxSupply;
     uint256 public maxMintAmountPerTx;
 
-    string private baseURI; // ! Make private on next contract
+    string private baseURI; // ! Make private
     string public hiddenMetadataUri =
-        "ipfs://QmXbSt9F1fx2VvvgS5Hj7FrSaZe5k99pAZv2GKv1H9Mff3/hidden.json";
+        "ipfs://QmXbSt9F1fx2VvvgS5Hj7FrSaZe5k99pAZv2GKv1H9Mff3/hidden.json"; //TODO: Ensure hidden metadata contains correct image url
     string public baseExtension = ".json";
 
     bool public paused = false;
@@ -107,24 +107,25 @@ contract GenericEye is ERC721, Ownable, ReentrancyGuard, PaymentSplitter {
 
 
     // Unpause function when any type of sale is enabled
-
+    //TODO: Ensure only one saleState can be true at any given time
+    //TODO: Update MaxMint and price when states change within contract
     function togglePause() public onlyOwner {
         paused = !paused;
     }
 
     function toggleVipSale() public onlyOwner {
         vipM = !vipM;
-        paused = true;
+        paused = false;
     }
 
     function togglePresale() public onlyOwner {
         presaleM = !presaleM;
-        paused = true;
+        paused = false;
     }
 
     function togglePublicSale() public onlyOwner {
         publicM = !publicM;
-        paused = true;
+        paused = false;
     }
 
     function vipMint(

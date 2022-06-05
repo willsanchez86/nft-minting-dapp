@@ -1,10 +1,10 @@
 import NftImage from './components/NftImage';
+import ContractAddress from './components/ContractAddress';
 import { useState, useEffect } from 'react';
 import { initOnboard } from 'utils/onboard';
 import { useConnectWallet, useSetChain, useWallets } from '@web3-onboard/react';
 import {
-  setCost,
-  getCost,
+  setContractMaxMintAmount,
   setPreSaleMerkleRoot,
   getTotalMinted,
   getMaxSupply,
@@ -87,22 +87,27 @@ function App() {
 
       setPaused(await isPausedState());
       setIsPublicSale(await isPublicSaleState());
-      const preSaleState = await isPreSaleState();
-      setIsPreSale(preSaleState);
-      const vipSaleState = await isVipSaleState();
-      setIsVipSale(vipSaleState);
+      setIsPreSale(await isPreSaleState());
+      setIsVipSale(await isVipSaleState());
 
-      setMaxMintAmount(
-        isVipSale
-          ? CollectionConfig.vipSale.maxMintAmountPerTx
-          : isPreSale
-          ? CollectionConfig.presale.maxMintAmountPerTx
-          : CollectionConfig.publicSale.maxMintAmountPerTx
-      );
-
-      setPrice(await getCost());
+      // setPrice(await getCost());
     };
     init();
+    setMaxMintAmount(
+      isVipSale
+        ? CollectionConfig.vipSale.maxMintAmountPerTx
+        : isPreSale
+        ? CollectionConfig.preSale.maxMintAmountPerTx
+        : CollectionConfig.publicSale.maxMintAmountPerTx
+    );
+    setContractMaxMintAmount(maxMintAmount);
+    setPrice(
+      isVipSale
+        ? CollectionConfig.vipSale.price
+        : isPreSale
+        ? CollectionConfig.preSale.price
+        : CollectionConfig.publicSale.price
+    );
   }, []);
 
   // ! If preSale, update Merkle Root to preSaleWhitelist and adjust price
@@ -110,7 +115,6 @@ function App() {
     if (isPreSale) {
       const preSaleConfig = async () => {
         await setPreSaleMerkleRoot();
-        await setCost(CollectionConfig.preSale.price);
       };
 
       preSaleConfig();
@@ -118,15 +122,15 @@ function App() {
   }, [isPreSale]);
 
   // ! If publicSale, update price
-  useEffect(() => {
-    if (isPublicSale) {
-      const publicSaleConfig = async () => {
-        await setCost(CollectionConfig.publicSale.price);
-      };
+  // useEffect(() => {
+  //   if (isPublicSale) {
+  //     const publicSaleConfig = async () => {
+  //       await setCost(CollectionConfig.publicSale.price);
+  //     };
 
-      publicSaleConfig();
-    }
-  }, [isPublicSale]);
+  //     publicSaleConfig();
+  //   }
+  // }, [isPublicSale]);
 
   // Increment and Decrement Mint Amount functions
   const incrementMintAmount = () => {
@@ -186,10 +190,10 @@ function App() {
   };
 
   return (
-    <div className="h-full w-full overflow-hidden flex bg-gradient-to-br from-red-300 to-stone-900">
+    <div className="h-full w-full overflow-hidden flex bg-gradient-to-br from-red-600 to-stone-900">
       <div className="h-full w-11/12 lg:w-7/12 bg-black bg-blend-color-dodge m-auto text-center">
         <div className="flex flex-col  h-full w-full px-2 md:px-10">
-          <div className="relative z-1 w-full bg-gray-900/90 filter backdrop-blur-sm py-4 rounded-md px-2 md:px-10 flex flex-col">
+          <div className="relative z-1 w-full filter backdrop-blur-sm py-4 rounded-md px-2 md:px-10 flex flex-col">
             {wallet && (
               <button
                 className="absolute left-1 bg-indigo-600 transition duration-200 ease-in-out font-chalk border-2 border-[rgba(0,0,0,1)] shadow-[0px_3px_0px_0px_rgba(0,0,0,1)] active:shadow-none px-4 py-2 rounded-md text-sm text-white tracking-wide uppercase"
@@ -246,7 +250,9 @@ function App() {
                   <h1 className="justify-start">Total</h1>
                   <h1 className="ml-auto">
                     <span className="mr-1">
-                      {Number.parseFloat(price * mintAmount).toFixed(2)}
+                      {Number.parseFloat(
+                        (price / Math.pow(10, 18)) * mintAmount
+                      ).toFixed(2)}
                     </span>
                     ETH + GAS
                   </h1>
@@ -296,18 +302,7 @@ function App() {
             </div>
           )}
 
-          <footer className="h-1/5 p-3 border-t border-gray-300">
-            <h1 className="font-coiny text-2xl font-bold p-4">
-              CONTRACT ADDRESS
-            </h1>
-            <a
-              href={`https://rinkeby.etherscan.io/address/${CollectionConfig.contractAddress}#readContract`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {CollectionConfig.contractAddress}
-            </a>
-          </footer>
+          <ContractAddress />
         </div>
       </div>
     </div>

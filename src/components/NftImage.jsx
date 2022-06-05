@@ -1,5 +1,4 @@
-import image from '../assets/CarmineChimpanzini.jpg';
-import CollectionConfig from 'config/CollectionConfig';
+import image from '../assets/WaragiApe.jpg';
 
 function NftImage({ totalMinted, maxSupply }) {
   return (

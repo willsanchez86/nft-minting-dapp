@@ -29,7 +29,7 @@ export const setPreSaleMerkleRoot = async () => {
   const newRoot = merkleTree.getRoot();
 
   // Set the re-calculated merkle root to the contract.
-  await nftContract.setMerkleRoot(newRoot);
+  await nftContract.methods.setMerkleRoot(newRoot);
 
   console.log('Whitelist root set to:', newRoot);
 };
@@ -64,14 +64,24 @@ export const isPublicSaleState = async () => {
   return publicSale;
 };
 
-export const getCost = async () => {
-  const price = await nftContract.methods.price().call();
-  return price;
+export const setContractMaxMintAmount = async (_maxMintAmount) => {
+  await nftContract.methods
+    .setMaxMintAmountPerTx(_maxMintAmount)
+    .send({ from: process.env.REACT_APP_METAMASK_DEFAULT_ACCOUNT });
 };
 
-export const setCost = async (_price) => {
-  nftContract.methods.setPrice(_price).catch((err) => console.log(err));
-};
+// export const getCost = async () => {
+//   const price = await nftContract.methods.price().call();
+//   return price;
+// };
+
+// export const setCost = async (_price) => {
+//   await nftContract.methods.setPrice(_price).call();
+
+//   console.log(
+//     `Price is now set to ${await nftContract.methods.price().call()}`
+//   );
+// };
 
 export const vipMint = async (mintAmount) => {
   if (!window.ethereum.selectedAddress) {
@@ -103,7 +113,7 @@ export const vipMint = async (mintAmount) => {
   const tx = {
     to: CollectionConfig.contractAddress,
     from: window.ethereum.selectedAddress,
-    value: (CollectionConfig.preSale.price * mintAmount).toString(16),
+    value: (CollectionConfig.vipSale.price * mintAmount).toString(16),
     // parseInt(
     //   web3.utils.toWei(String(CollectionConfig.price * mintAmount), 'ether')
     // ).toString(16), // hex
