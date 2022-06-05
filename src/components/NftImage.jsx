@@ -1,6 +1,10 @@
+import { useContext } from 'react';
 import image from '../assets/WaragiApe.jpg';
+import MintingContext from '../context/MintingContext';
 
-function NftImage({ totalMinted, maxSupply }) {
+function NftImage() {
+  const { totalMinted, maxSupply } = useContext(MintingContext);
+
   return (
     <div className="flex w-full md:w-1/2">
       <div className="relative w-full md:pb-10 md:pr-12">

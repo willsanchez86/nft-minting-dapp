@@ -1,6 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
 import { initOnboard } from 'utils/onboard';
-import { useConnectWallet, useSetChain, useWallets } from '@web3-onboard/react';
 import {
   setPreSaleMerkleRoot,
   getTotalMinted,
@@ -13,16 +12,11 @@ import {
   presaleMint,
   publicMint,
 } from 'utils/interact';
-
 import CollectionConfig from 'config/CollectionConfig';
 
 const MintingContext = createContext();
 
 export const MintingProvider = ({ children }) => {
-  //   const [{ wallet, connecting }, connect, disconnect] = useConnectWallet();
-  //   const [{ chains, connectedChain, settingChain }, setChain] = useSetChain();
-  //   const connectedWallets = useWallets();
-
   const [maxSupply, setMaxSupply] = useState(0);
   const [totalMinted, setTotalMinted] = useState(0);
   const [maxMintAmount, setMaxMintAmount] = useState(0);
@@ -42,43 +36,7 @@ export const MintingProvider = ({ children }) => {
     setOnboard(initOnboard);
   }, []);
 
-  //   //Check if wallet was previously loaded and saved in localStorage
-  //   useEffect(() => {
-  //     if (!connectedWallets.length) return;
-
-  //     const connectedWalletsLabelArray = connectedWallets.map(
-  //       ({ label }) => label
-  //     );
-  //     window.localStorage.setItem(
-  //       'connectedWallets',
-  //       JSON.stringify(connectedWalletsLabelArray)
-  //     );
-  //   }, [connectedWallets]);
-
-  //   //   Set Wallet
-  //   useEffect(() => {
-  //     // If onboarding failed, then return
-  //     if (!onboard) return;
-
-  //     const previouslyConnectedWallets = JSON.parse(
-  //       window.localStorage.getItem('connectedWallets')
-  //     );
-
-  //     if (previouslyConnectedWallets?.length) {
-  //       async function setWalletFromLocalStorage() {
-  //         await connect({
-  //           autoSelect: {
-  //             label: previouslyConnectedWallets[0],
-  //             disableModals: true,
-  //           },
-  //         });
-  //       }
-
-  //       setWalletFromLocalStorage();
-  //     }
-  //   }, [onboard, connect]);
-
-  // TODO: INIT
+  // INIT
   useEffect(() => {
     const init = async () => {
       setMaxSupply(await getMaxSupply());
@@ -135,7 +93,7 @@ export const MintingProvider = ({ children }) => {
     }
   };
 
-  // TODO: VIP Mint Handler
+  // VIP Mint Handler
   const vipMintHandler = async () => {
     setIsMinting(true);
 
@@ -149,7 +107,7 @@ export const MintingProvider = ({ children }) => {
     setIsMinting(false);
   };
 
-  // TODO: PreSale Mint Handler
+  // PreSale Mint Handler
   const presaleMintHandler = async () => {
     setIsMinting(true);
 
@@ -163,7 +121,7 @@ export const MintingProvider = ({ children }) => {
     setIsMinting(false);
   };
 
-  // TODO: Public Mint Handler
+  //  Public Mint Handler
   const publicMintHandler = async () => {
     setIsMinting(true);
 
