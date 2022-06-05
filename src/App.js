@@ -1,47 +1,69 @@
 import NftImage from './components/NftImage';
 import ContractAddress from './components/ContractAddress';
-import { useState, useEffect } from 'react';
-import { initOnboard } from 'utils/onboard';
+import { useEffect, useContext } from 'react';
+// import { initOnboard } from 'utils/onboard';
 import { useConnectWallet, useSetChain, useWallets } from '@web3-onboard/react';
-import {
-  setContractMaxMintAmount,
-  setPreSaleMerkleRoot,
-  getTotalMinted,
-  getMaxSupply,
-  isPausedState,
-  isPublicSaleState,
-  isPreSaleState,
-  isVipSaleState,
-  vipMint,
-  presaleMint,
-  publicMint,
-} from '../utils/interact';
+// import {
+//   setContractMaxMintAmount,
+//   setPreSaleMerkleRoot,
+//   getTotalMinted,
+//   getMaxSupply,
+//   isPausedState,
+//   isPublicSaleState,
+//   isPreSaleState,
+//   isVipSaleState,
+//   vipMint,
+//   presaleMint,
+//   publicMint,
+// } from '../utils/interact';
 
-import CollectionConfig from 'config/CollectionConfig';
+// import CollectionConfig from 'config/CollectionConfig';
+
+import MintingContext from './context/MintingContext';
 
 function App() {
   const [{ wallet, connecting }, connect, disconnect] = useConnectWallet();
   const [{ chains, connectedChain, settingChain }, setChain] = useSetChain();
   const connectedWallets = useWallets();
 
-  const [maxSupply, setMaxSupply] = useState(0);
-  const [totalMinted, setTotalMinted] = useState(0);
-  const [maxMintAmount, setMaxMintAmount] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const [isPublicSale, setIsPublicSale] = useState(false);
-  const [isPreSale, setIsPreSale] = useState(false);
-  const [isVipSale, setIsVipSale] = useState(true);
+  // const [maxSupply, setMaxSupply] = useState(0);
+  // const [totalMinted, setTotalMinted] = useState(0);
+  // const [maxMintAmount, setMaxMintAmount] = useState(0);
+  // const [paused, setPaused] = useState(false);
+  // const [isPublicSale, setIsPublicSale] = useState(false);
+  // const [isPreSale, setIsPreSale] = useState(false);
+  // const [isVipSale, setIsVipSale] = useState(true);
 
-  const [status, setStatus] = useState(null);
-  const [mintAmount, setMintAmount] = useState(1);
-  const [isMinting, setIsMinting] = useState(false);
-  const [onboard, setOnboard] = useState(null);
-  const [price, setPrice] = useState(null);
+  // const [status, setStatus] = useState(null);
+  // const [mintAmount, setMintAmount] = useState(1);
+  // const [isMinting, setIsMinting] = useState(false);
+  // const [onboard, setOnboard] = useState(null);
+  // const [price, setPrice] = useState(null);
 
-  // Set Onboard
-  useEffect(() => {
-    setOnboard(initOnboard);
-  }, []);
+  const {
+    maxSupply,
+    totalMinted,
+    maxMintAmount,
+    price,
+    paused,
+    isPublicSale,
+    isPreSale,
+    isVipSale,
+    onboard,
+    mintAmount,
+    status,
+    isMinting,
+    incrementMintAmount,
+    decrementMintAmount,
+    vipMintHandler,
+    presaleMintHandler,
+    publicMintHandler,
+  } = useContext(MintingContext);
+
+  // // Set Onboard
+  // useEffect(() => {
+  //   setOnboard(initOnboard);
+  // }, []);
 
   //Check if wallet was previously loaded and saved in localStorage
   useEffect(() => {
@@ -79,47 +101,47 @@ function App() {
     }
   }, [onboard, connect]);
 
-  // TODO: INIT
-  useEffect(() => {
-    const init = async () => {
-      setMaxSupply(await getMaxSupply());
-      setTotalMinted(await getTotalMinted());
+  // // TODO: INIT
+  // useEffect(() => {
+  //   const init = async () => {
+  //     setMaxSupply(await getMaxSupply());
+  //     setTotalMinted(await getTotalMinted());
 
-      setPaused(await isPausedState());
-      setIsPublicSale(await isPublicSaleState());
-      setIsPreSale(await isPreSaleState());
-      setIsVipSale(await isVipSaleState());
+  //     // setPaused(await isPausedState());
+  //     // setIsPublicSale(await isPublicSaleState());
+  //     // setIsPreSale(await isPreSaleState());
+  //     // setIsVipSale(await isVipSaleState());
 
-      // setPrice(await getCost());
-    };
-    init();
-    setMaxMintAmount(
-      isVipSale
-        ? CollectionConfig.vipSale.maxMintAmountPerTx
-        : isPreSale
-        ? CollectionConfig.preSale.maxMintAmountPerTx
-        : CollectionConfig.publicSale.maxMintAmountPerTx
-    );
-    setContractMaxMintAmount(maxMintAmount);
-    setPrice(
-      isVipSale
-        ? CollectionConfig.vipSale.price
-        : isPreSale
-        ? CollectionConfig.preSale.price
-        : CollectionConfig.publicSale.price
-    );
-  }, []);
+  //     // setPrice(await getCost());
+  //   };
+  //   init();
+  //   setMaxMintAmount(
+  //     isVipSale
+  //       ? CollectionConfig.vipSale.maxMintAmountPerTx
+  //       : isPreSale
+  //       ? CollectionConfig.preSale.maxMintAmountPerTx
+  //       : CollectionConfig.publicSale.maxMintAmountPerTx
+  //   );
+  //   setContractMaxMintAmount(maxMintAmount);
+  //   setPrice(
+  //     isVipSale
+  //       ? CollectionConfig.vipSale.price
+  //       : isPreSale
+  //       ? CollectionConfig.preSale.price
+  //       : CollectionConfig.publicSale.price
+  //   );
+  // }, []);
 
   // ! If preSale, update Merkle Root to preSaleWhitelist and adjust price
-  useEffect(() => {
-    if (isPreSale) {
-      const preSaleConfig = async () => {
-        await setPreSaleMerkleRoot();
-      };
+  // useEffect(() => {
+  //   if (isPreSale) {
+  //     const preSaleConfig = async () => {
+  //       await setPreSaleMerkleRoot();
+  //     };
 
-      preSaleConfig();
-    }
-  }, [isPreSale]);
+  //     preSaleConfig();
+  //   }
+  // }, [isPreSale]);
 
   // ! If publicSale, update price
   // useEffect(() => {
@@ -132,62 +154,62 @@ function App() {
   //   }
   // }, [isPublicSale]);
 
-  // Increment and Decrement Mint Amount functions
-  const incrementMintAmount = () => {
-    if (mintAmount < maxMintAmount) {
-      setMintAmount(mintAmount + 1);
-    }
-    console.log(mintAmount);
-  };
+  // // Increment and Decrement Mint Amount functions
+  // const incrementMintAmount = () => {
+  //   if (mintAmount < maxMintAmount) {
+  //     setMintAmount(mintAmount + 1);
+  //   }
+  //   console.log(mintAmount);
+  // };
 
-  const decrementMintAmount = () => {
-    if (mintAmount > 1) {
-      setMintAmount(mintAmount - 1);
-      console.log(mintAmount);
-    }
-  };
+  // const decrementMintAmount = () => {
+  //   if (mintAmount > 1) {
+  //     setMintAmount(mintAmount - 1);
+  //     console.log(mintAmount);
+  //   }
+  // };
 
-  // TODO: VIP Mint Handler
-  const vipMintHandler = async () => {
-    setIsMinting(true);
+  // // TODO: VIP Mint Handler
+  // const vipMintHandler = async () => {
+  //   setIsMinting(true);
 
-    const { success, status } = await vipMint(mintAmount);
+  //   const { success, status } = await vipMint(mintAmount);
 
-    setStatus({
-      success,
-      message: status,
-    });
+  //   setStatus({
+  //     success,
+  //     message: status,
+  //   });
 
-    setIsMinting(false);
-  };
+  //   setIsMinting(false);
+  // };
 
-  // TODO: PreSale Mint Handler
-  const presaleMintHandler = async () => {
-    setIsMinting(true);
+  // // TODO: PreSale Mint Handler
+  // const presaleMintHandler = async () => {
+  //   setIsMinting(true);
 
-    const { success, status } = await presaleMint(mintAmount);
+  //   const { success, status } = await presaleMint(mintAmount);
 
-    setStatus({
-      success,
-      message: status,
-    });
+  //   setStatus({
+  //     success,
+  //     message: status,
+  //   });
 
-    setIsMinting(false);
-  };
+  //   setIsMinting(false);
+  // };
 
-  // TODO: Public Mint Handler
-  const publicMintHandler = async () => {
-    setIsMinting(true);
+  // // TODO: Public Mint Handler
+  // const publicMintHandler = async () => {
+  //   setIsMinting(true);
 
-    const { success, status } = await publicMint(mintAmount);
+  //   const { success, status } = await publicMint(mintAmount);
 
-    setStatus({
-      success,
-      message: status,
-    });
+  //   setStatus({
+  //     success,
+  //     message: status,
+  //   });
 
-    setIsMinting(false);
-  };
+  //   setIsMinting(false);
+  // };
 
   return (
     <div className="h-full w-full overflow-hidden flex bg-gradient-to-br from-red-600 to-stone-900">
@@ -235,7 +257,7 @@ function App() {
                   +
                 </button>
                 <h1 className="font-sans h-1/5 text-4xl text-center font-bold mt-2">
-                  1
+                  {mintAmount}
                 </h1>
                 <button
                   onClick={decrementMintAmount}
