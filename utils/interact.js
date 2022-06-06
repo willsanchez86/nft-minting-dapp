@@ -29,7 +29,9 @@ export const setPreSaleMerkleRoot = async () => {
   const newRoot = merkleTree.getRoot();
 
   // Set the re-calculated merkle root to the contract.
-  await nftContract.methods.setMerkleRoot(newRoot);
+  await nftContract.methods
+    .setMerkleRoot(newRoot)
+    .send({ from: process.env.REACT_APP_METAMASK_DEFAULT_ACCOUNT });
 
   console.log('Whitelist root set to:', newRoot);
 };

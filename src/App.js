@@ -1,9 +1,11 @@
 import NftImage from './components/NftImage';
 import ContractAddress from './components/ContractAddress';
+import Status from './components/Status';
 import { useEffect, useContext } from 'react';
 import { useConnectWallet, useSetChain, useWallets } from '@web3-onboard/react';
 
 import MintingContext from './context/MintingContext';
+import MintAmount from './components/MintAmount';
 
 function App() {
   const [{ wallet, connecting }, connect, disconnect] = useConnectWallet();
@@ -11,8 +13,6 @@ function App() {
   const connectedWallets = useWallets();
 
   const {
-    maxSupply,
-    totalMinted,
     maxMintAmount,
     price,
     paused,
@@ -21,10 +21,7 @@ function App() {
     isVipSale,
     onboard,
     mintAmount,
-    status,
     isMinting,
-    incrementMintAmount,
-    decrementMintAmount,
     vipMintHandler,
     presaleMintHandler,
     publicMintHandler,
@@ -67,9 +64,9 @@ function App() {
   }, [onboard, connect]);
 
   return (
-    <div className="h-full w-full overflow-hidden flex bg-gradient-to-br from-red-600 to-stone-900">
-      <div className="h-full w-11/12 lg:w-7/12 bg-black bg-blend-color-dodge m-auto text-center">
-        <div className="flex flex-col  h-full w-full px-2 md:px-10">
+    <div className="h-full w-full flex bg-gradient-to-br from-stone-900 to-red-900">
+      <div className="h-full w-11/12 lg:w-7/12 bg-black m-auto justify-center text-center overflow-auto">
+        <div className="flex flex-col  h-full w-full px-2 md:px-10 object-cover">
           <div className="relative z-1 w-full filter backdrop-blur-sm py-4 rounded-md px-2 md:px-10 flex flex-col">
             {wallet && (
               <button
@@ -83,7 +80,7 @@ function App() {
                 Disconnect
               </button>
             )}
-            <header className="font-coiny uppercase h-1/5 text-3xl md:text-4xl font-bold pt-14 md:pt-4">
+            <header className="font-coiny uppercase h-1/5 text-3xl md:text-4xl font-bold pt-14 md:pt-4 text-brand-red">
               {paused
                 ? 'Paused'
                 : isVipSale
@@ -92,7 +89,7 @@ function App() {
                 ? 'Pre-Sale'
                 : 'Public Sale'}
             </header>
-            <h3 className="text-sm text-pink-200 tracking-widest md:pt-8">
+            <h3 className="text-sm text-white tracking-widest pt-8 md:pt-8">
               {/* If wallet is connected,  render abbreciated contract address*/}
               {wallet?.accounts[0]?.address
                 ? wallet?.accounts[0]?.address.slice(0, 8) +
@@ -104,34 +101,19 @@ function App() {
           <main className="flex flex-1 flex-wrap">
             <NftImage />
             <div className="flex flex-1 flex-col justify-between px-4 mt-16 md:mt-0">
-              <div className="flex justify-between gap-4">
-                <button
-                  onClick={incrementMintAmount}
-                  className="btn btn-square btn-lg text-white text-5xl pb-1"
-                >
-                  +
-                </button>
-                <h1 className="font-sans h-1/5 text-4xl text-center font-bold mt-2">
-                  {mintAmount}
-                </h1>
-                <button
-                  onClick={decrementMintAmount}
-                  className="btn btn-square btn-lg justify-self-end text-white text-4xl pb-1"
-                >
-                  -
-                </button>
-              </div>
-              <p>Max Mint Amount: {maxMintAmount}</p>
-              <div className="flex flex-1 flex-col justify-center">
-                <div className="font-coiny font-semibold flex text-2xl border-y border-gray-300 py-6">
-                  <h1 className="justify-start">Total</h1>
-                  <h1 className="ml-auto">
-                    <span className="mr-1">
+              <MintAmount />
+              <p className="text-white">Max Mint Amount: {maxMintAmount}</p>
+              <div className="flex flex-1 flex-col justify-center mt-3">
+                <div className="font-coiny font-semibold flex text-xl border-y border-gray-300 py-6">
+                  <h1 className="justify-start text-brand-yellow">Total</h1>
+                  <h1 className="ml-auto text-brand-dark-grey">
+                    <span className="mr-2 text-brand-yellow">
                       {Number.parseFloat(
                         (price / Math.pow(10, 18)) * mintAmount
-                      ).toFixed(2)}
+                      ).toFixed(2)}{' '}
+                      ETH
                     </span>
-                    ETH + GAS
+                    + GAS
                   </h1>
                 </div>
               </div>
@@ -142,8 +124,8 @@ function App() {
                   className={` ${
                     paused || isMinting
                       ? 'bg-gray-900 cursor-not-allowed'
-                      : 'bg-gradient-to-br from-brand-purple to-brand-pink shadow-lg hover:shadow-pink-400/50'
-                  } font-coiny mt-12 w-full px-6 py-3 rounded-md text-2xl text-white  mx-4 tracking-wide uppercase`}
+                      : 'bg-gradient-to-br from-brand-charcoal to-brand-red shadow-lg hover:shadow-red-500/50'
+                  } font-coiny mt-8 w-full px-6 py-3 rounded-md text-2xl text-white  mx-4  mb-4 tracking-wide uppercase`}
                   disabled={paused || isMinting}
                   onClick={
                     isVipSale
@@ -157,7 +139,7 @@ function App() {
                 </button>
               ) : (
                 <button
-                  className="btn btn-wide text-xl m-auto font-bold"
+                  className="font-coiny mt-8 w-full px-6 py-3 rounded-md text-2xl text-white  mx-4  mb-4 tracking-wide uppercase bg-gradient-to-br from-brand-charcoal to-brand-red shadow-lg hover:shadow-red-500/50"
                   onClick={() => connect()}
                 >
                   Connect Wallet
@@ -167,18 +149,7 @@ function App() {
           </main>
 
           {/* Status */}
-          {status && (
-            <div
-              className={`border ${
-                status.success ? 'border-green-500' : 'border-brand-pink-400 '
-              } rounded-md text-start h-full px-4 py-4 w-full mx-auto mt-8 md:mt-4"`}
-            >
-              <p className="flex flex-col space-y-2 text-white text-sm md:text-base break-words ...">
-                {status.message}
-              </p>
-            </div>
-          )}
-
+          <Status />
           <ContractAddress />
         </div>
       </div>

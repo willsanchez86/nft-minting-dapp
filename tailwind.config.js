@@ -18,6 +18,7 @@ module.exports = {
         'brand-grey': 'var(--clr-grey)',
         'brand-light-grey': 'var(--clr-light-grey)',
         'brand-white': 'var(--clr-white)',
+        'brand-yellow': 'var(--clr-yellow)',
       },
     },
   },

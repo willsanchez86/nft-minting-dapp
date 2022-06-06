@@ -5,30 +5,32 @@
  *   make sure you update the merkleroot in the contract using the script `scripts/setMerkleRoot.js`
  */
 
-const CollectionConfig = require('../config/CollectionConfig.js');
-const hre = require('hardhat')
-const { MerkleTree } = require('merkletreejs')
-const keccak256 = require('keccak256')
-const whitelist = require('../config/whitelist.js')
+// const CollectionConfig = require('../config/CollectionConfig.js');
+const hre = require('hardhat');
+const { MerkleTree } = require('merkletreejs');
+const keccak256 = require('keccak256');
+const whitelist = require('../config/whitelist.js');
 
 async function main() {
-const nftFactory = await hre.ethers.getContractFactory('GenericEye')
-const nftContract = await nftFactory.attach(CollectionConfig.contractAddress)  // Deployed contract address
+  const nftFactory = await hre.ethers.getContractFactory('GenericEye');
+  const nftContract = await nftFactory.attach(
+    '0x8e2d2410C712c7821b229B2e0A585ABf6Ae83B6B'
+  ); // Deployed contract address
 
-// Re-calculate merkle root from the whitelist array.
-const leafNodes = whitelist.map((addr) => keccak256(addr))
-const merkleTree = new MerkleTree(leafNodes, keccak256, { sortPairs: true })
-const root = merkleTree.getRoot()
+  // Re-calculate merkle root from the whitelist array.
+  const leafNodes = whitelist.map((addr) => keccak256(addr));
+  const merkleTree = new MerkleTree(leafNodes, keccak256, { sortPairs: true });
+  const root = merkleTree.getRoot();
 
-// Set the re-calculated merkle root to the contract.
-await nftContract.setMerkleRoot(root)
+  // Set the re-calculated merkle root to the contract.
+  await nftContract.setMerkleRoot(root);
 
-console.log('Whitelist root set to:', root)
+  console.log('Whitelist root set to:', root);
 }
 
 main()
-.then(() => process.exit(0))
-.catch((error) => {
-    console.error(error)
-    process.exit(1)
-})
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
