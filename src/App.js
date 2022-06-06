@@ -64,7 +64,7 @@ function App() {
   }, [onboard, connect]);
 
   return (
-    <div className="h-full w-full flex bg-gradient-to-br from-stone-900 to-red-900">
+    <div className="h-full w-full flex bg-gradient-to-br from-black to-red-900">
       <div className="h-full w-11/12 lg:w-7/12 bg-black m-auto justify-center text-center overflow-auto">
         <div className="flex flex-col  h-full w-full px-2 md:px-10 object-cover">
           <div className="relative z-1 w-full filter backdrop-blur-sm py-4 rounded-md px-2 md:px-10 flex flex-col">
