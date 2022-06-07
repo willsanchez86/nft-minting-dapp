@@ -10,7 +10,9 @@ const web3 = createAlchemyWeb3(
   process.env.REACT_APP_NEXT_PUBLIC_ALCHEMY_RPC_URL
 );
 
-const contract = require('../artifacts/contracts/GenericEye.sol/GenericEye.json');
+// const contract = require('../artifacts/contracts/GenericEye.sol/GenericEye.json');
+
+const contract = require('./NFT.json');
 
 const nftContract = new web3.eth.Contract(
   contract.abi,
