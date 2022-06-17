@@ -4,7 +4,7 @@
 
 Decentralized Full Stack NFT Minting Application built on Ethereum Network for Organized Crime Apes NFT Project (Deployed Demo Version on Rinkeby Testnet with dummy artwork for client privacy)
 
-https://nft-minting-dapp-navy.vercel.app/
+<a href="https://nft-minting-dapp-navy.vercel.app/"><img src="https://img.shields.io/badge/-DEMO-4E69C8?style=for-the-badge&logo=appveyor;link=https://nft-minting-dapp-navy.vercel.app" alt="DEMO"></a>
 
 
 ### Features
