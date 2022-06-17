@@ -16,13 +16,17 @@ https://nft-minting-dapp-navy.vercel.app/
 
 
 ### Installation & Startup
-
-  # Clone the repository and change directory into it
-  git clone https://github.com/willsanchez86/nft-minting-dapp.git
+  
+```bash
+  Clone the repository and change directory into it:
+  
+  git clone https://github.com/willsanchez86/nft-minting-dapp.git 
   cd nft-minting-dapp
 
   npm install            # Download packages
   npm start              # Run the dev server
+```
+
 
 
 ### Usage & Details
