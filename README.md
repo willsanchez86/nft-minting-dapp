@@ -41,4 +41,8 @@ Official Minting Date is still pending, but future release will include the foll
 * Terms of Service - pending writeup from OCA
 
 
-
+### Credits
+* <a href="https://docs.openzeppelin.com/">OpenZeppelin</a> ERC-721 Smart Contract Standard
+* <a href="https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d#code">Bored Ape Yacht Club Smart Contract </a> customized with inspiration  from <a href="https://github.com/hashlips-lab/nft-erc721-collection/blob/main/smart-contract/contracts/YourNftToken.sol">Hashlips</a> to ensure secure, and tested contract implementation. 
+* <a href="https://docs.blocknative.com/onboard">Blocknative</a> used for onboarding and connecting customer wallets
+* <a href="https://docs.alchemy.com/alchemy/">Alchemy</a> supernode removes the need for running a self-hosted node for this web3 application
