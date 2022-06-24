@@ -25,8 +25,7 @@ Decentralized Full Stack NFT Minting Application built on Ethereum Network for O
 
   npm install            # Download packages
   
-  Create a .env file containing the following environment variables (Do NOT use quotation marks when filling in values):
-      
+  Create a .env file containing the following environment variables (Do NOT use quotation marks when filling in values):    
       REACT_APP_NEXT_PUBLIC_ALCHEMY_RPC_URL=
           # 1. Visit https://dashboard.alchemyapi.io/signup/chain and create an account
           # 2. Select Ethereum as your Ecosysten and hit "Get Started"
