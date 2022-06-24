@@ -25,8 +25,10 @@ Decentralized Full Stack NFT Minting Application built on Ethereum Network for O
 
   npm install            # Download packages
   
-  Create a .env file containing the following environment variables (Do NOT use quotation marks when filling in values):    
-      REACT_APP_NEXT_PUBLIC_ALCHEMY_RPC_URL=
+  
+  Create a .env file containing the following environment variables (Do NOT use quotation marks when filling in values):  
+  
+      REACT_APP_NEXT_PUBLIC_ALCHEMY_RPC_URL=<Your alchemy rpc url>
           # 1. Visit https://dashboard.alchemyapi.io/signup/chain and create an account
           # 2. Select Ethereum as your Ecosysten and hit "Get Started"
           # 3. Fill out Form Fields, choose Rinkeby as network, and click "Create App"
@@ -35,16 +37,16 @@ Decentralized Full Stack NFT Minting Application built on Ethereum Network for O
           # 6. Choose "Capped Capacity" Scaling Policy then hit Continue
           # 7. Copy and paste the https:... link as the value for this environment variable
 
-      REACT_APP_NEXT_PUBLIC_FORTMATIC_KEY=
-      # Visit https://dashboard.fortmatic.com/login and create an account. Copy & Paste the test API Key as the value for this environment variable -->
+      REACT_APP_NEXT_PUBLIC_FORTMATIC_KEY=<Your fortmatic API Key>
+          # Visit https://dashboard.fortmatic.com/login and create an account. Copy & Paste the test API Key as the value for this environment variable -->
 
-      REACT_APP_METAMASK_PRIVATE_KEY=
-      # Copy & Paste your Metamask Private Key (WARNING: DO NOT SHARE THESE KEYS WITH ANYONE AND BE VERY CAREFUL NOT TO EXPOSE THESE ONLINE!!)
+      REACT_APP_METAMASK_PRIVATE_KEY=<Your Metamask Private Key>
+          # Copy & Paste your Metamask Private Key (WARNING: DO NOT SHARE THESE KEYS WITH ANYONE AND BE VERY CAREFUL NOT TO EXPOSE THESE ONLINE!!)
 
-      REACT_APP_METAMASK_DEFAULT_ACCOUNT=
-      # Copy & Paste your Metamask Account Number 
+      REACT_APP_METAMASK_DEFAULT_ACCOUNT=<Your Metamask Account>
+          # Copy & Paste your Metamask Account Number 
 
-      REACT_APP_ETHERSCAN_API_KEY=
+      REACT_APP_ETHERSCAN_API_KEY=<Your Etherscan API Key>
           # 1. Visit https://etherscan.io/login and create 
           # 2. Copy & Paste your Metamask account an account. 
           # 3. Click on your username and choose "API Key" in the dropdown menu
