@@ -24,6 +24,37 @@ Decentralized Full Stack NFT Minting Application built on Ethereum Network for O
   cd nft-minting-dapp
 
   npm install            # Download packages
+  
+  Create a .env file containing the following environment variables (Do NOT use quotation marks when filling in values):
+      
+      REACT_APP_NEXT_PUBLIC_ALCHEMY_RPC_URL=
+          # 1. Visit https://dashboard.alchemyapi.io/signup/chain and create an account
+          # 2. Select Ethereum as your Ecosysten and hit "Get Started"
+          # 3. Fill out Form Fields, choose Rinkeby as network, and click "Create App"
+          # 4. Choose your preferred plan (Free Recommended)
+          # 5. Skip for now on the Payment Info Page
+          # 6. Choose "Capped Capacity" Scaling Policy then hit Continue
+          # 7. Copy and paste the https:... link as the value for this environment variable
+
+      REACT_APP_NEXT_PUBLIC_FORTMATIC_KEY=
+      # Visit https://dashboard.fortmatic.com/login and create an account. Copy & Paste the test API Key as the value for this environment variable -->
+
+      REACT_APP_METAMASK_PRIVATE_KEY=
+      # Copy & Paste your Metamask Private Key (WARNING: DO NOT SHARE THESE KEYS WITH ANYONE AND BE VERY CAREFUL NOT TO EXPOSE THESE ONLINE!!)
+
+      REACT_APP_METAMASK_DEFAULT_ACCOUNT=
+      # Copy & Paste your Metamask Account Number 
+
+      REACT_APP_ETHERSCAN_API_KEY=
+          # 1. Visit https://etherscan.io/login and create 
+          # 2. Copy & Paste your Metamask account an account. 
+          # 3. Click on your username and choose "API Key" in the dropdown menu
+          # 4. Create a new API Key
+          # 5. Copy & Paste it as the value for this environment variable
+
+      REACT_APP_BASE_URI_METADATA=ipfs://QmSGJHJfWFNCHKjU6sfREeFyvE8ywZeoCKoiASL1Qc2Hnp/        # Generic Eye Metadata
+  
+  
   npm start              # Run the dev server
 ```
 
@@ -31,6 +62,8 @@ Decentralized Full Stack NFT Minting Application built on Ethereum Network for O
 
 ### Usage & Details
 Simple UI displayed as a stand-alone web page. This is intentionally separated from OrganizedCrimeApes.com to improve operational speed & efficiency in anticipation of heavy site traffic on launch day. 
+
+**NOTE: To interact with the website or to deploy your own version to the Rinkeby Test Network, your connected wallet must contain Rinkeby Test Eth, which can be acquired on https://faucets.chain.link/rinkeby 
 
 
 ### Future Releases
